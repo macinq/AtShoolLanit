@@ -4,7 +4,9 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.util.ArrayList;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.*;
 
 /**
  * Zoo!
@@ -32,7 +34,8 @@ public class App {
     printHelp();
 
     do {
-      System.out.println("Welcome to the zoo!");
+      System.out.println(LocalDateTime.now().format(DateTimeFormatter.ofPattern("dd MMMM uuuu HH:mm:ss", Locale.ENGLISH)));
+      System.out.println("Welcome to the cyber zoo!");
       System.out.println("************");
       System.out.println("Input:");
       try {
@@ -80,7 +83,8 @@ public class App {
                 System.out.println("***");
                 for (int j = 0; j < carnAviaries.get(i).aviary.length; j++) {
                   if ((flag == 1) && (carnCount > 0 && carnAviaries.get(i).fullness < carnAviaries.get(i).aviary.length)) {
-                    int random = (int) (Math.random() * Carnivores.getAnimals().size() + 1);
+                    Random r = new Random();
+                    int random = r.nextInt(Carnivores.getAnimals().size());
                     carnAviaries.get(i).addAnimal(ZooFactory.getAnimal(random, Carnivores.getAnimals(), "carnivores"), j);
                     carnAviaries.get(i).fullness++;
                     carnCount--;
@@ -113,7 +117,8 @@ public class App {
                 System.out.println("***");
                 for (int j = 0; j < herbAviaries.get(i).aviary.length; j++) {
                   if ((flag == 1) && (herbCount > 0 && herbAviaries.get(i).fullness < herbAviaries.get(i).aviary.length)) {
-                    int random = (int) (Math.random() * Herbivores.getAnimals().size() + 1);
+                    Random r = new Random();
+                    int random = r.nextInt(Herbivores.getAnimals().size());
                     herbAviaries.get(i).addAnimal(ZooFactory.getAnimal(random, Herbivores.getAnimals(), "herbivores"), j);
                     herbAviaries.get(i).fullness++;
                     herbCount--;
@@ -161,7 +166,8 @@ public class App {
                 System.out.println("***");
                 for (int j = 0; j < carnAviaries.get(i).aviary.length; j++) {
                   if ((flag == 1 && carnAviaries.get(i).aviary[j] != null) && (carnAviaries.get(i).aviary[j].fullness <= 0)) {
-                    int random = (int) (Math.random() * AnimalFood.getFoods().size() + 1);
+                    Random r = new Random();
+                    int random = r.nextInt(AnimalFood.getFoods().size());
 //                    Food food = FoodFactory.getFood(random, AnimalFood.getFoods(), "animal");
                     Food food = FoodFactory.getFood(random, PlantFood.getFoods(), "plant");
 //                    new AnimalFood(food.name).giveFood(carnAviaries.get(i).aviary[j]);
@@ -193,7 +199,8 @@ public class App {
                 System.out.println("***");
                 for (int j = 0; j < herbAviaries.get(i).aviary.length; j++) {
                   if ((flag == 1 && herbAviaries.get(i).aviary[j] != null) && (herbAviaries.get(i).aviary[j].fullness <= 0)) {
-                    int random = (int) (Math.random() * PlantFood.getFoods().size() + 1);
+                    Random r = new Random();
+                    int random = r.nextInt(PlantFood.getFoods().size());
                     Food food = FoodFactory.getFood(random, PlantFood.getFoods(), "plant");
                     new PlantFood(food.name).giveFood(herbAviaries.get(i).aviary[j]);
                     System.out.println("random: " + random);

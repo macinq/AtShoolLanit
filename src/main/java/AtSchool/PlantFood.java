@@ -1,17 +1,20 @@
 package AtSchool;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 
 public class PlantFood extends Food {
 
   private static final ArrayList<String> foods = new ArrayList<>();
 
   static {
-    foods.add("Carrot");
-    foods.add("Apple");
-    foods.add("Salad");
-    foods.add("Corn");
-    foods.add("Banana");
+    foods.add(String.valueOf(Foods.CARROT));
+    foods.add(String.valueOf(Foods.APPLE));
+    foods.add(String.valueOf(Foods.SALAD));
+    foods.add(String.valueOf(Foods.CORN));
+    foods.add(String.valueOf(Foods.BANANA));
+    Collections.sort(foods);
   }
 
   public static ArrayList<String> getFoods() {
@@ -23,19 +26,19 @@ public class PlantFood extends Food {
       this.name = name;
       this.type = "plant";
       switch (name) {
-        case "Carrot":
+        case "CARROT":
           this.fullness = 7;
           break;
-        case "Apple":
+        case "APPLE":
           this.fullness = 5;
           break;
-        case "Salad":
+        case "SALAD":
           this.fullness = 3;
           break;
-        case "Corn":
+        case "CORN":
           this.fullness = 6;
           break;
-        case "Banana":
+        case "BANANA":
           this.fullness = 8;
           break;
         default:
@@ -47,7 +50,11 @@ public class PlantFood extends Food {
 
   @Override
   public void giveFood(Animal animal) {
-    animal.eat(FoodFactory.setFood(this.name, this.type));
+    try {
+      animal.eat(FoodFactory.setFood(this.name, this.type));
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
   }
 }
 

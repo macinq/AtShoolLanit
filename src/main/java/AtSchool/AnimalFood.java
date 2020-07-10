@@ -1,17 +1,19 @@
 package AtSchool;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class AnimalFood extends Food {
 
   private static final ArrayList<String> foods = new ArrayList<>();
 
   static {
-    foods.add("Beef");
-    foods.add("Pork");
-    foods.add("Fish");
-    foods.add("Chicken");
-    foods.add("Mutton");
+    foods.add(String.valueOf(Foods.BEEF));
+    foods.add(String.valueOf(Foods.PORK));
+    foods.add(String.valueOf(Foods.FISH));
+    foods.add(String.valueOf(Foods.CHICKEN));
+    foods.add(String.valueOf(Foods.MUTTON));
+    Collections.sort(foods);
   }
 
   public static ArrayList<String> getFoods() {
@@ -23,19 +25,19 @@ public class AnimalFood extends Food {
       this.name = name;
       this.type = "animal";
       switch (name) {
-        case "Beef":
+        case "BEEF":
           this.fullness = 10;
           break;
-        case "Pork":
+        case "PORK":
           this.fullness = 15;
           break;
-        case "Fish":
+        case "FISH":
           this.fullness = 5;
           break;
-        case "Chicken":
+        case "CHICKEN":
           this.fullness = 8;
           break;
-        case "Mutton":
+        case "MUTTON":
           this.fullness = 17;
           break;
         default:
@@ -47,7 +49,11 @@ public class AnimalFood extends Food {
 
   @Override
   public void giveFood(Animal animal) {
-    animal.eat(FoodFactory.setFood(this.name, this.type));
+    try {
+      animal.eat(FoodFactory.setFood(this.name, this.type));
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
   }
 }
 

@@ -5,5 +5,18 @@ public abstract class Food {
   String type;
   int fullness;
 
-  public abstract void giveFood(Animal animal);
+  public abstract void giveFood(Animal animal) throws Exception;
+
+  public enum Foods {
+    CARROT,
+    APPLE,
+    SALAD,
+    CORN,
+    BANANA,
+    BEEF,
+    PORK,
+    FISH,
+    CHICKEN,
+    MUTTON
+  }
 }

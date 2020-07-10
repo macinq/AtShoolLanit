@@ -4,12 +4,12 @@ import java.util.ArrayList;
 
 public class Herbivores extends Animal {
   @Override
-  public void eat(Food food) {
+  public void eat(Food food) throws Exception {
     if (food.type.equals("plant")) {
       this.fullness += food.fullness;
     } else {
       this.fullness--;
-      System.out.println("This is not plant food");
+      throw new Exception("This is not plant food");
     }
   }
 

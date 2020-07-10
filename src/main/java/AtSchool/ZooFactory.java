@@ -18,15 +18,15 @@ public class ZooFactory {
     try {
       if (type.equals("herbivores")) {
         for (int i = 0; i < n; i++) {
-          if (Herbivores.getAnimals().get(i).equals(animals.get(number - 1))) {
-            animal = new Herbivores(Herbivores.getAnimals().get(number - 1));
+          if (Herbivores.getAnimals().get(i).equals(animals.get(number))) {
+            animal = new Herbivores(Herbivores.getAnimals().get(number));
             break;
           }
         }
       } else if (type.equals("carnivores")) {
         for (int i = 0; i < n; i++) {
-          if (Carnivores.getAnimals().get(i).equals(animals.get(number - 1))) {
-            animal = new Carnivores(Carnivores.getAnimals().get(number - 1));
+          if (Carnivores.getAnimals().get(i).equals(animals.get(number))) {
+            animal = new Carnivores(Carnivores.getAnimals().get(number));
             break;
           }
         }

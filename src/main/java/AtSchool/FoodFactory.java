@@ -14,15 +14,15 @@ public class FoodFactory {
     try {
       if (type.equals("plant")) {
         for (int i = 0; i < n; i++) {
-          if (PlantFood.getFoods().get(i).equals(foods.get(number - 1))) {
-            food = new PlantFood(PlantFood.getFoods().get(number - 1));
+          if (PlantFood.getFoods().get(i).equals(foods.get(number))) {
+            food = new PlantFood(PlantFood.getFoods().get(number));
             break;
           }
         }
       } else if (type.equals("animal")) {
         for (int i = 0; i < n; i++) {
-          if (AnimalFood.getFoods().get(i).equals(foods.get(number - 1))) {
-            food = new AnimalFood(AnimalFood.getFoods().get(number - 1));
+          if (AnimalFood.getFoods().get(i).equals(foods.get(number))) {
+            food = new AnimalFood(AnimalFood.getFoods().get(number));
             break;
           }
         }
