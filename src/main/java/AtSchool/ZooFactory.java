@@ -2,7 +2,12 @@ package AtSchool;
 
 import java.util.ArrayList;
 
+import org.apache.logging.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+
 public class ZooFactory {
+  private static final Logger log = LogManager.getLogger(ZooFactory.class);
+
   static Animal getAnimal(int number, final ArrayList<String> animals, String type) {
     Animal animal = new Animal() {
       @Override
@@ -32,7 +37,8 @@ public class ZooFactory {
         }
       }
     } catch (IllegalArgumentException e) {
-      System.out.println("Illegal argument");
+      log.error("Illegal argument: " + type);
+      e.printStackTrace();
     }
 
     return animal;

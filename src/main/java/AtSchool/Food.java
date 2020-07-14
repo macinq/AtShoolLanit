@@ -5,7 +5,7 @@ public abstract class Food {
   String type;
   int fullness;
 
-  public abstract void giveFood(Animal animal) throws Exception;
+  public abstract void giveFood(Animal animal) throws IllegalArgumentException;
 
   public enum Foods {
     CARROT,

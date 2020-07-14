@@ -1,7 +1,5 @@
 package AtSchool;
 
-import java.util.ArrayList;
-
 public class HerbAviary implements Aviary {
   int size;
   int fullness;

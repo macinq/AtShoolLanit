@@ -2,7 +2,12 @@ package AtSchool;
 
 import java.util.ArrayList;
 
+import org.apache.logging.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+
 public class FoodFactory {
+  private static final Logger log = LogManager.getLogger(FoodFactory.class);
+
   static Food getFood(int number, final ArrayList<String> foods, String type) {
     Food food = new Food() {
       @Override
@@ -28,7 +33,8 @@ public class FoodFactory {
         }
       }
     } catch (IllegalArgumentException e) {
-      System.out.println("Illegal argument");
+      log.error("Illegal argument: " + type);
+      e.printStackTrace();
     }
 
     return food;

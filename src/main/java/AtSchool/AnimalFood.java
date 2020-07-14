@@ -3,7 +3,11 @@ package AtSchool;
 import java.util.ArrayList;
 import java.util.Collections;
 
+import org.apache.logging.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+
 public class AnimalFood extends Food {
+  private static final Logger log = LogManager.getLogger(AnimalFood.class);
 
   private static final ArrayList<String> foods = new ArrayList<>();
 
@@ -41,9 +45,14 @@ public class AnimalFood extends Food {
           this.fullness = 17;
           break;
         default:
+          throw new RuntimeException("Unknown name");
       }
     } catch (NullPointerException e) {
-      throw new NullPointerException("Invalid input");
+      log.error("Invalid input " + name);
+      e.printStackTrace();
+    } catch (RuntimeException e) {
+      log.error("Unknown name: " + name);
+      e.printStackTrace();
     }
   }
 
@@ -51,7 +60,8 @@ public class AnimalFood extends Food {
   public void giveFood(Animal animal) {
     try {
       animal.eat(FoodFactory.setFood(this.name, this.type));
-    } catch (Exception e) {
+    } catch (IllegalArgumentException e) {
+      log.error("Illegal argument: " + this.type);
       e.printStackTrace();
     }
   }

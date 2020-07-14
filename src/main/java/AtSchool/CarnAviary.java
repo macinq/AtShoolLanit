@@ -1,8 +1,5 @@
 package AtSchool;
 
-import java.lang.reflect.Array;
-import java.util.ArrayList;
-
 public class CarnAviary implements Aviary {
   int size;
   int fullness;

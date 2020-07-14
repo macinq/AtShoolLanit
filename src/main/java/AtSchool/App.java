@@ -8,10 +8,15 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
 
+import org.apache.logging.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+
 /**
  * Zoo!
  */
 public class App {
+  private static final Logger log = LogManager.getLogger(App.class);
+
   private static void printHelp() {
     System.out.println("****HELP****");
     System.out.println("Food: Beef Pork Fish Chicken Mutton , Carrot Apple Salad Corn Banana");
@@ -23,10 +28,10 @@ public class App {
     System.out.println("************");
   }
 
-  public static void main(String[] args) throws IOException {
+  public static void main(String[] args) {
     InputStream in = System.in;
     BufferedReader br = new BufferedReader(new InputStreamReader(in));
-    String str;
+    String str = "";
     String start = "start";
     String exit = "exit";
     String help = "help";
@@ -41,7 +46,8 @@ public class App {
       try {
         str = br.readLine();
       } catch (IOException e) {
-        throw new RuntimeException("Invalid input");
+        log.error("Invalid input");
+        e.printStackTrace();
       }
 
       if (str.equalsIgnoreCase(start)) {
@@ -51,20 +57,20 @@ public class App {
           System.out.println("Enter the number of Herbivores:");
           int herbCount = Integer.parseInt(br.readLine());
           System.out.println("Enter the size of aviares:");
-          int h = Integer.parseInt(br.readLine());
+          int size = Integer.parseInt(br.readLine());
           System.out.println("Enter the number of aviares:");
-          int n = Integer.parseInt(br.readLine());
-          System.out.println("LOG");
+          int num = Integer.parseInt(br.readLine());
           System.out.println("***");
-          System.out.println("carnCount: " + carnCount);
-          System.out.println("herbCount: " + herbCount);
+          log.info("carnCount: " + carnCount);
+          log.info("herbCount: " + herbCount);
+          log.info("size: " + size);
+          log.info("num: " + num);
           System.out.println("***");
-
           ArrayList<CarnAviary> carnAviaries = new ArrayList<>();
           ArrayList<HerbAviary> herbAviaries = new ArrayList<>();
-          for (int i = 0; i < n; i++) {
-            carnAviaries.add(new CarnAviary(h));
-            herbAviaries.add(new HerbAviary(h));
+          for (int i = 0; i < num; i++) {
+            carnAviaries.add(new CarnAviary(size));
+            herbAviaries.add(new HerbAviary(size));
           }
           System.out.println("Aviaries is created");
           System.out.println("Would you like to add animals? Y/N");
@@ -88,9 +94,9 @@ public class App {
                     carnAviaries.get(i).addAnimal(ZooFactory.getAnimal(random, Carnivores.getAnimals(), "carnivores"), j);
                     carnAviaries.get(i).fullness++;
                     carnCount--;
-                    System.out.println("random: " + random);
-                    System.out.println("Carnivores: " + carnAviaries.get(i).aviary[j].name);
-                    System.out.println("carnCount: " + carnCount);
+                    log.info("random: " + random);
+                    log.info("carnivores: " + carnAviaries.get(i).aviary[j].name);
+                    log.info("carnCount: " + carnCount);
                   } else if (carnAviaries.get(i).fullness == carnAviaries.get(i).aviary.length) {
                     flag = 0;
                     System.out.println("No room");
@@ -101,8 +107,8 @@ public class App {
                   }
                   System.out.println("***");
                 }
-                System.out.println("Finish " + i + " aviary");
-                System.out.println("carnCount: " + carnCount);
+                log.info("finish " + i + " aviary");
+                log.info("carnCount: " + carnCount);
                 System.out.println();
               }
 
@@ -122,9 +128,9 @@ public class App {
                     herbAviaries.get(i).addAnimal(ZooFactory.getAnimal(random, Herbivores.getAnimals(), "herbivores"), j);
                     herbAviaries.get(i).fullness++;
                     herbCount--;
-                    System.out.println("random: " + random);
-                    System.out.println("Carnivores: " + herbAviaries.get(i).aviary[j].name);
-                    System.out.println("herbCount: " + herbCount);
+                    log.info("random: " + random);
+                    log.info("herbivores: " + herbAviaries.get(i).aviary[j].name);
+                    log.info("herbCount: " + herbCount);
                   } else if (herbAviaries.get(i).fullness == herbAviaries.get(i).aviary.length) {
                     flag = 0;
                     System.out.println("No room");
@@ -135,12 +141,13 @@ public class App {
                   }
                   System.out.println("***");
                 }
-                System.out.println("Finish " + i + " aviary");
-                System.out.println("herbCount: " + herbCount);
+                log.info("finish " + i + " aviary");
+                log.info("herbCount: " + herbCount);
                 System.out.println();
               }
             } catch (IOException e) {
-              throw new RuntimeException("Invalid input");
+              log.error("Invalid input");
+              e.printStackTrace();
             }
           } else {
             System.out.println("A zoo cannot exist without animals");
@@ -161,6 +168,7 @@ public class App {
                 System.out.println("Input:");
                 feed = br.readLine();
               }
+
               for (int i = 0; i < carnAviaries.size(); i++) {
                 int flag = 1;
                 System.out.println("***");
@@ -172,9 +180,9 @@ public class App {
                     Food food = FoodFactory.getFood(random, PlantFood.getFoods(), "plant");
 //                    new AnimalFood(food.name).giveFood(carnAviaries.get(i).aviary[j]);
                     new PlantFood(food.name).giveFood(carnAviaries.get(i).aviary[j]);
-                    System.out.println("random: " + random);
-                    System.out.println("food: " + food.name + " fullness: " + food.fullness);
-                    System.out.println("Carnivores: " + carnAviaries.get(i).aviary[j].name + " fullness: " + carnAviaries.get(i).aviary[j].fullness);
+                    log.info("random: " + random);
+                    log.info("food: " + food.name + " fullness: " + food.fullness);
+                    log.info("carnivores: " + carnAviaries.get(i).aviary[j].name + " fullness: " + carnAviaries.get(i).aviary[j].fullness);
                   } else if (carnAviaries.get(i).aviary[j] == null) {
                     System.out.println("No animals");
                     break;
@@ -184,7 +192,7 @@ public class App {
                   }
                   System.out.println("***");
                 }
-                System.out.println("Finish " + i + " aviary");
+                log.info("finish " + i + " aviary");
                 System.out.println();
               }
 
@@ -203,9 +211,9 @@ public class App {
                     int random = r.nextInt(PlantFood.getFoods().size());
                     Food food = FoodFactory.getFood(random, PlantFood.getFoods(), "plant");
                     new PlantFood(food.name).giveFood(herbAviaries.get(i).aviary[j]);
-                    System.out.println("random: " + random);
-                    System.out.println("food: " + food.name + " fullness: " + food.fullness);
-                    System.out.println("Carnivores: " + herbAviaries.get(i).aviary[j].name + " fullness: " + herbAviaries.get(i).aviary[j].fullness);
+                    log.info("random: " + random);
+                    log.info("food: " + food.name + " fullness: " + food.fullness);
+                    log.info("herbivores: " + herbAviaries.get(i).aviary[j].name + " fullness: " + herbAviaries.get(i).aviary[j].fullness);
                   } else if (herbAviaries.get(i).aviary[j] == null) {
                     System.out.println("No animals");
                     break;
@@ -215,11 +223,12 @@ public class App {
                   }
                   System.out.println("***");
                 }
-                System.out.println("Finish " + i + " aviary");
+                log.info("finish " + i + " aviary");
                 System.out.println();
               }
             } catch (IOException e) {
-              throw new RuntimeException("Invalid input");
+              log.error("Invalid input");
+              e.printStackTrace();
             }
           } else {
             System.out.println("Animals starve to death");
@@ -228,7 +237,8 @@ public class App {
             printHelp();
           }
         } catch (IOException e) {
-          throw new RuntimeException("Invalid input");
+          log.error("Invalid input");
+          e.printStackTrace();
         }
       } else if (str.equalsIgnoreCase(help)) {
         printHelp();
