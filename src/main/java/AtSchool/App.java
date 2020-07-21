@@ -1,13 +1,14 @@
 package AtSchool;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
+import java.io.*;
+import java.lang.reflect.Type;
 import java.time.LocalDateTime;
+import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.LogManager;
 
@@ -16,6 +17,10 @@ import org.apache.logging.log4j.LogManager;
  */
 public class App {
   private static final Logger log = LogManager.getLogger(App.class);
+//  private static String jsonCarnAviaries;
+//  private static String jsonHerbAviaries;
+//  private static Gson gsonC = new Gson();
+//  private static Gson gsonH = new Gson();
 
   private static void printHelp() {
     System.out.println("****HELP****");
@@ -39,7 +44,8 @@ public class App {
     printHelp();
 
     do {
-      System.out.println(LocalDateTime.now().format(DateTimeFormatter.ofPattern("dd MMMM uuuu HH:mm:ss", Locale.ENGLISH)));
+//      System.out.println(LocalDateTime.now().format(DateTimeFormatter.ofPattern("uuuu-MM-dd HH:mm:ss SSS", Locale.ENGLISH)));
+      System.out.println(DateTimeFormatter.ISO_INSTANT.format(ZonedDateTime.now()));
       System.out.println("Welcome to the cyber zoo!");
       System.out.println("************");
       System.out.println("Input:");
@@ -66,12 +72,40 @@ public class App {
           log.info("size: " + size);
           log.info("num: " + num);
           System.out.println("***");
-          ArrayList<CarnAviary> carnAviaries = new ArrayList<>();
-          ArrayList<HerbAviary> herbAviaries = new ArrayList<>();
-          for (int i = 0; i < num; i++) {
-            carnAviaries.add(new CarnAviary(size));
-            herbAviaries.add(new HerbAviary(size));
+          Type collectionCarn = new TypeToken<Collection<CarnAviary>>(){}.getType();
+          Type collectionHerb = new TypeToken<Collection<HerbAviary>>(){}.getType();
+//          ArrayList<CarnAviary> carnAviaries = gsonC.fromJson(jsonCarnAviaries, collectionCarn);
+//          ArrayList<HerbAviary> herbAviaries = gsonH.fromJson(jsonHerbAviaries, collectionHerb);
+          ArrayList<CarnAviary> carnAviaries = null;
+          ArrayList<HerbAviary> herbAviaries = null;
+          if (carnAviaries != null) {
+            for (int i = 0; i < carnAviaries.size(); i++) {
+              System.out.println(carnAviaries.get(i));
+            }
           }
+          if (herbAviaries != null) {
+            for (int i = 0; i < herbAviaries.size(); i++) {
+              System.out.println(herbAviaries.get(i));
+            }
+          }
+          if (carnAviaries == null) {
+            carnAviaries = new ArrayList<>();
+            for (int i = 0; i < num; i++) {
+              carnAviaries.add(new CarnAviary(size));
+            }
+          }
+          if (herbAviaries == null) {
+            herbAviaries = new ArrayList<>();
+            for (int i = 0; i < num; i++) {
+              herbAviaries.add(new HerbAviary(size));
+            }
+          }
+
+
+//          for (int i = 0; i < num; i++) {
+//            carnAviaries.add(new CarnAviary(size));
+//            herbAviaries.add(new HerbAviary(size));
+//          }
           System.out.println("Aviaries is created");
           System.out.println("Would you like to add animals? Y/N");
           System.out.println("Input:");
@@ -236,6 +270,8 @@ public class App {
             System.out.println();
             printHelp();
           }
+//          jsonCarnAviaries = gsonC.toJson(carnAviaries);
+//          jsonHerbAviaries = gsonH.toJson(herbAviaries);
         } catch (IOException e) {
           log.error("Invalid input");
           e.printStackTrace();

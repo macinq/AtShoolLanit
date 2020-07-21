@@ -1,6 +1,10 @@
 package AtSchool;
 
+import com.google.gson.Gson;
+import org.junit.Assert;
 import org.junit.Test;
+
+import java.util.Objects;
 
 public class Kotik {
 //  @Test
@@ -40,6 +44,23 @@ public class Kotik {
   String name;
   String meow;
   int fullness;
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    Kotik kotik = (Kotik) o;
+    return prettiness == kotik.prettiness &&
+            weight == kotik.weight &&
+            fullness == kotik.fullness &&
+            name.equals(kotik.name) &&
+            meow.equals(kotik.meow);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(prettiness, weight, name, meow, fullness);
+  }
 
   //Конструктор без параметров, он идентичен конструктору по умолчанию,
   //который сюда бы подставила Java,
@@ -185,23 +206,54 @@ public class Kotik {
   }
 
   public static void main(String[] args) {
-    Kotik kotik = new Kotik(6, 2, "Johnny", "Meowmeow", 0);
-    Kotik kotik1 = new Kotik(10, 4, "Maks", "Murrrmeow", 0);
-    Kotik kotik2 = new Kotik(8, 3, "Kuks", "Khryameow", 0);
+    Kotik kotik1 = new Kotik(6, 2, "Johnny", "Meowmeow", 0);
+    Kotik kotik2 = new Kotik(10, 4, "Maks", "Murrrmeow", 0);
+    Kotik kotik3 = new Kotik(8, 3, "Kuks", "Khryameow", 0);
+
+    Gson gson1 = new Gson();
+    Gson gson2 = new Gson();
+    Gson gson3 = new Gson();
+    String serialKotik1 = gson1.toJson(kotik1);
+    String serialKotik2 = gson2.toJson(kotik2);
+    String serialKotik3 = gson3.toJson(kotik3);
 
     System.out.println("prettiness | weight | name | meow | fullness");
-    System.out.println(kotik.prettiness + "\t\t\t" + kotik.weight + "\t\t " + kotik.name + "\t" + kotik.meow + "\t\t" + kotik.fullness);
-    kotik.liveAnotherDay();
-    System.out.println(kotik.prettiness + "\t\t\t" + kotik.weight + "\t\t " + kotik.name + "\t" + kotik.meow + "\t\t" + kotik.fullness);
-    System.out.println();
-    System.out.println("prettiness | weight | name | meow | fullness");
     System.out.println(kotik1.prettiness + "\t\t\t" + kotik1.weight + "\t\t " + kotik1.name + "\t" + kotik1.meow + "\t\t" + kotik1.fullness);
-    kotik1.liveAnotherDay();
-    System.out.println(kotik1.prettiness + "\t\t\t" + kotik1.weight + "\t\t " + kotik1.name + "\t" + kotik1.meow + "\t\t" + kotik1.fullness);
-    System.out.println();
+//    kotik1.liveAnotherDay();
+//    System.out.println(kotik1.prettiness + "\t\t\t" + kotik1.weight + "\t\t " + kotik1.name + "\t" + kotik1.meow + "\t\t" + kotik1.fullness);
+//    System.out.println();
+//    System.out.println("prettiness | weight | name | meow | fullness");
+    System.out.println(kotik2.prettiness + "\t\t\t" + kotik2.weight + "\t\t " + kotik2.name + "\t" + kotik2.meow + "\t\t" + kotik2.fullness);
+//    kotik1.liveAnotherDay();
+//    System.out.println(kotik2.prettiness + "\t\t\t" + kotik2.weight + "\t\t " + kotik2.name + "\t" + kotik2.meow + "\t\t" + kotik2.fullness);
+//    System.out.println();
+//    System.out.println("prettiness | weight | name | meow | fullness");
+    System.out.println(kotik3.prettiness + "\t\t\t" + kotik3.weight + "\t\t " + kotik3.name + "\t" + kotik3.meow + "\t\t" + kotik3.fullness);
+//    kotik2.liveAnotherDay();
+//    System.out.println(kotik3.prettiness + "\t\t\t" + kotik3.weight + "\t\t " + kotik3.name + "\t" + kotik3.meow + "\t\t" + kotik3.fullness);
+
+    Kotik deserialKotik1 = gson1.fromJson(serialKotik1, Kotik.class);
+    Kotik deserialKotik2 = gson2.fromJson(serialKotik2, Kotik.class);
+    Kotik deserialKotik3 = gson3.fromJson(serialKotik3, Kotik.class);
+
     System.out.println("prettiness | weight | name | meow | fullness");
-    System.out.println(kotik2.prettiness + "\t\t\t" + kotik2.weight + "\t\t " + kotik2.name + "\t" + kotik2.meow + "\t\t" + kotik2.fullness);
-    kotik2.liveAnotherDay();
-    System.out.println(kotik2.prettiness + "\t\t\t" + kotik2.weight + "\t\t " + kotik2.name + "\t" + kotik2.meow + "\t\t" + kotik2.fullness);
+    System.out.println(deserialKotik1.prettiness + "\t\t\t" + deserialKotik1.weight + "\t\t " + deserialKotik1.name + "\t" + deserialKotik1.meow + "\t\t" + deserialKotik1.fullness);
+//    kotik1.liveAnotherDay();
+//    System.out.println(deserialKotik1.prettiness + "\t\t\t" + deserialKotik1.weight + "\t\t " + deserialKotik1.name + "\t" + deserialKotik1.meow + "\t\t" + deserialKotik1.fullness);
+//    System.out.println();
+//    System.out.println("prettiness | weight | name | meow | fullness");
+    System.out.println(deserialKotik2.prettiness + "\t\t\t" + deserialKotik2.weight + "\t\t " + deserialKotik2.name + "\t" + deserialKotik2.meow + "\t\t" + deserialKotik2.fullness);
+//    kotik1.liveAnotherDay();
+//    System.out.println(deserialKotik2.prettiness + "\t\t\t" + deserialKotik2.weight + "\t\t " + deserialKotik2.name + "\t" + deserialKotik2.meow + "\t\t" + deserialKotik2.fullness);
+//    System.out.println();
+//    System.out.println("prettiness | weight | name | meow | fullness");
+    System.out.println(deserialKotik3.prettiness + "\t\t\t" + deserialKotik3.weight + "\t\t " + deserialKotik3.name + "\t" + deserialKotik3.meow + "\t\t" + deserialKotik3.fullness);
+//    kotik2.liveAnotherDay();
+//    System.out.println(deserialKotik3.prettiness + "\t\t\t" + deserialKotik3.weight + "\t\t " + deserialKotik3.name + "\t" + deserialKotik3.meow + "\t\t" + deserialKotik3.fullness);
+
+    Assert.assertNotEquals("Объекты эквивалентны", kotik1, deserialKotik1);
+    Assert.assertNotEquals("Объекты эквивалентны", kotik2, deserialKotik2);
+    Assert.assertNotEquals("Объекты эквивалентны", kotik3, deserialKotik3);
+
   }
 }
